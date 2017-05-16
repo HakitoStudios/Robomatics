@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/WideContent"
+    android:layout_weight="1"
+    android:layout_margin="5dp"
+    app:cardPreventCornerOverlap="false">
+
+    <android.support.v7.widget.LinearLayoutCompat style="@style/WideContent.Vertical"
+        android:padding="8dp">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/sketch_name_text_view"
+            style="@style/WrapContent"
+            android:textSize="22sp"
+            tools:text="Name of the sketch" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/author_text_view"
+            style="@style/WideContent"
+            tools:text="by Author Name" />
+
+        <android.support.v7.widget.LinearLayoutCompat style="@style/WideContent.Horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/code_lines_text_view"
+                style="@style/WrapContent"
+                android:drawableRight="@android:drawable/ic_menu_sort_by_size"
+                android:gravity="center"
+                android:textSize="20sp"
+                tools:text="1124" />
+
+            <Space style="@style/WideContent" android:layout_weight="1"/>
+
+            <include layout="@layout/view_likes" />
+        </android.support.v7.widget.LinearLayoutCompat>
+    </android.support.v7.widget.LinearLayoutCompat>
+</android.support.v7.widget.CardView>

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "654044033923",
+    "firebase_url": "https://robomatics-964e2.firebaseio.com",
+    "project_id": "robomatics-964e2",
+    "storage_bucket": "robomatics-964e2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:654044033923:android:2ea21a1a0bbf0789",
+        "android_client_info": {
+          "package_name": "ua.nure.havrysh.robomatics"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "654044033923-uejn2thf8paj0i37qqjspoju7rta1515.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsJ34Ipp6lM5Xqqt5G16IVlsvVsk-_CYE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
