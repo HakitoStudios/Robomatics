@@ -6,10 +6,16 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.MenuRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.ViewGroup;
+
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.auth.api.Auth;
+import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.ButterKnife;
 import ua.nure.havrysh.robomatics.di.component.ActivityComponent;
@@ -33,7 +39,10 @@ public abstract class BaseFragment extends Fragment implements View {
         super.onCreate(savedInstanceState);
         presenter = injectDependencies(BaseActivity.baseActivityFrom(this).getActivityComponent());
         presenter.onCreate();
-        presenter.setupActionBar(getActivity().getActionBar());
+        ActionBar actionBar = ((BaseActivity) getActivity()).getSupportActionBar();
+        Toolbar toolbar = ((BaseActivity) getActivity()).getToolbar();
+        toolbar.setNavigationOnClickListener(v -> getActivity().onBackPressed());
+        setupToolbar(toolbar, actionBar);
 
         menuRes = getMenuId();
         if (menuRes != 0) {
@@ -62,6 +71,9 @@ public abstract class BaseFragment extends Fragment implements View {
         if (menuRes != 0) {
             inflater.inflate(menuRes, menu);
         }
+    }
+
+    protected void setupToolbar(Toolbar toolbar, ActionBar actionBar) {
     }
 
     protected abstract void initViews(Bundle savedInstanceState);

@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.ContentFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/MatchParent">
 
     <android.support.v7.widget.LinearLayoutCompat
         style="@style/MatchParent.Vertical"
         android:padding="8dp">
 
-        <android.support.v7.widget.LinearLayoutCompat style="@style/WideContent.Horizontal">
+        <android.support.design.widget.TextInputLayout style="@style/WideContent">
 
-            <include layout="@layout/view_likes" />
-        </android.support.v7.widget.LinearLayoutCompat>
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/sketch_title_edit_text"
+                style="@style/WideContent"
+                android:hint="Title" />
+        </android.support.design.widget.TextInputLayout>
 
-        <android.support.v7.widget.AppCompatEditText
+        <ua.nure.havrysh.robomatics.ui.widget.CodeEditText
             android:id="@+id/code_edit_text"
-            style="@style/MatchParent" />
+            style="@style/MatchParent"
+            android:gravity="top|left"
+            android:hint="Code"
+            android:inputType="textMultiLine|textNoSuggestions"
+            tools:text="code" />
 
     </android.support.v7.widget.LinearLayoutCompat>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/try_out_fab"
-        style="@style/WrapContent"
-        android:layout_gravity="bottom|right" />
+        style="@style/FAB" />
 </android.support.v7.widget.ContentFrameLayout>

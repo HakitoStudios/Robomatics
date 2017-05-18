@@ -8,8 +8,7 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_sketch_fab"
-        style="@style/WrapContent"
-        android:layout_gravity="bottom|right" />
+        style="@style/FAB" />
 
     <TextView
         android:id="@+id/no_items_text"

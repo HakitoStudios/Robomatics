@@ -1,6 +1,7 @@
 package ua.nure.havrysh.robomatics.presenter;
 
 import android.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import io.reactivex.Flowable;
@@ -46,7 +47,7 @@ public abstract class BasePresenter<R extends Router, V extends View> {
     }
 
     protected <T> void subscribeNewThread(Flowable<T> flowable, Consumer<T> consumer) {
-        flowable.subscribeOn(Schedulers.io())
+        flowable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(consumer, this::handleError);
     }
@@ -60,5 +61,4 @@ public abstract class BasePresenter<R extends Router, V extends View> {
         onError(t);
     }
 
-    public abstract void setupActionBar(ActionBar actionBar);
 }

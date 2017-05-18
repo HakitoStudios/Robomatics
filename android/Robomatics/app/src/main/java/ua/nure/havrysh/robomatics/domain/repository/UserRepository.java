@@ -13,10 +13,17 @@ import ua.nure.havrysh.robomatics.domain.model.User;
 public class UserRepository extends BaseFirebaseRepository {
 
     private static final String USERS = "users";
+    private static final String SKETCHES = "sketches";
 
     @NonNull
-    public Flowable<User> push(@NonNull User user) {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(USERS).push();
+    public Flowable<String> addSketchToIndex(String userId, String sketchId) {
+        return setData(true,
+                FirebaseDatabase.getInstance().getReference(USERS).child(userId).child(SKETCHES).child(sketchId));
+    }
+
+    @NonNull
+    public Flowable<String> push(@NonNull User user, String id) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(USERS).child(id);
         return setData(user, ref);
     }
 

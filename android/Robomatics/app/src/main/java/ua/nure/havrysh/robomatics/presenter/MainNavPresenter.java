@@ -1,6 +1,7 @@
 package ua.nure.havrysh.robomatics.presenter;
 
 import android.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 
 import ua.nure.havrysh.robomatics.domain.facade.UserFacade;
 import ua.nure.havrysh.robomatics.mapper.FirebaseUserToUIMapper;
@@ -29,10 +30,6 @@ public class MainNavPresenter extends BasePresenter<MainNavRouter, MainNavView> 
         return super.onError(t);
     }
 
-    @Override
-    public void setupActionBar(ActionBar actionBar) {
-        //none
-    }
 
     @Override
     public void initView() {
@@ -45,7 +42,8 @@ public class MainNavPresenter extends BasePresenter<MainNavRouter, MainNavView> 
     }
 
     public void onSignedIn() {
-        initView();
+        subscribeNewThread(userFacade.checkUserForRegistration(), aBoolean -> {initView();});
+
     }
 
     public void onSignInFailed() {

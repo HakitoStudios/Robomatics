@@ -1,13 +1,23 @@
 package ua.nure.havrysh.robomatics.domain.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class User {
+
+    private int stub;
     private String name;
-
     private String login;
+    private HashMap<String, Object> sketches;
 
-    private List<String> sketches;
+    public int isStub() {
+        return stub;
+    }
+
+    public void setStub(int stub) {
+        this.stub = stub;
+    }
 
     public String getName() {
         return name;
@@ -26,10 +36,14 @@ public class User {
     }
 
     public List<String> getSketches() {
-        return sketches;
+        return new ArrayList<>(sketches.keySet());
     }
 
-    public void setSketches(List<String> sketches) {
+    public void setSketches(HashMap<String, Object> sketches) {
         this.sketches = sketches;
+    }
+
+    public void addSketch(String id) {
+        sketches.put(id, new Object());
     }
 }

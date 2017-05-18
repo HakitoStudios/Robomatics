@@ -1,6 +1,7 @@
 package ua.nure.havrysh.robomatics.presenter;
 
 import android.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 
 import ua.nure.havrysh.robomatics.domain.facade.SketchFacade;
 import ua.nure.havrysh.robomatics.presenter.view.MySketchesView;
@@ -21,10 +22,6 @@ public class MySketchesPresenter extends BasePresenter<MySketchesRouter, MySketc
                 sketchUiModels -> useView(v -> v.showSketches(sketchUiModels)));
     }
 
-    @Override
-    public void setupActionBar(ActionBar actionBar) {
-        //none
-    }
 
     public void onSketchSelected(SketchUiModel sketch){
         getRouter().showSketch(sketch.getId());

@@ -5,16 +5,14 @@ public class SketchUiModel {
     private String name;
     private String code;
     private String authorName;
-    private int likes;
     private int linesCount;
     private String ownerId;
 
-    public SketchUiModel(String id, String name, String code, String authorName, int likes, int linesCount, String ownerId) {
+    public SketchUiModel(String id, String name, String code, String authorName, int linesCount, String ownerId) {
         this.id = id;
         this.name = name;
         this.code = code;
         this.authorName = authorName;
-        this.likes = likes;
         this.linesCount = linesCount;
         this.ownerId = ownerId;
     }
@@ -49,14 +47,6 @@ public class SketchUiModel {
 
     public void setAuthorName(String authorName) {
         this.authorName = authorName;
-    }
-
-    public int getLikes() {
-        return likes;
-    }
-
-    public void setLikes(int likes) {
-        this.likes = likes;
     }
 
     public int getLinesCount() {

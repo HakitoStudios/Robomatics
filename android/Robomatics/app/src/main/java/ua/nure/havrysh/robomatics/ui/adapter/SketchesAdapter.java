@@ -38,9 +38,6 @@ public class SketchesAdapter extends BaseRecyclerAdapter<SketchUiModel> {
         @BindView(R.id.code_lines_text_view)
         TextView codeLinesTextView;
 
-        @BindView(R.id.likes_text_view)
-        TextView likesTextView;
-
         public SketchHolder(ViewGroup parent) {
             super(parent, R.layout.item_sketch);
         }
@@ -48,9 +45,8 @@ public class SketchesAdapter extends BaseRecyclerAdapter<SketchUiModel> {
         @Override
         protected void initViews(SketchUiModel item) {
             sketchNameTextView.setText(item.getName());
-            authorTextView.setText(item.getAuthorName());
+            authorTextView.setText("by " + item.getAuthorName());
             codeLinesTextView.setText(String.valueOf(item.getLinesCount()));
-            likesTextView.setText(String.valueOf(item.getLikes()));
             itemView.setOnClickListener(v -> onSketchSelectedListener.onSketchSelected(item));
         }
     }

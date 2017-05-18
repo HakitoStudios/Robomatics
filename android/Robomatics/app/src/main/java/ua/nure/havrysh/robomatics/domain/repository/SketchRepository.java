@@ -1,24 +1,22 @@
 package ua.nure.havrysh.robomatics.domain.repository;
 
+import android.text.TextUtils;
+
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
 import io.reactivex.Flowable;
-import ua.nure.havrysh.robomatics.domain.model.Marker;
 import ua.nure.havrysh.robomatics.domain.model.Sketch;
 
 public class SketchRepository extends BaseFirebaseRepository {
     private static final String SKETCHES_NODE = "sketches";
 
-    private static final String LIKES_NODE = "likes";
-
-    public Flowable<List<Marker>> getLikes(String sketchId) {
-        return getMarkers(FirebaseDatabase.getInstance().getReference(LIKES_NODE).child(sketchId));
-    }
-
-    public Flowable<Sketch> putSketch(Sketch sketch) {
-        return setData(sketch, FirebaseDatabase.getInstance().getReference(SKETCHES_NODE).push());
+    public Flowable<String> putSketch(Sketch sketch) {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(SKETCHES_NODE);
+        ref = TextUtils.isEmpty(sketch.getId()) ? ref.push() : ref.child(sketch.getId());
+        return setData(sketch, ref);
     }
 
     public Flowable<Sketch> getSketch(String id) {

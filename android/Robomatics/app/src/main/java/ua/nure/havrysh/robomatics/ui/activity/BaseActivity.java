@@ -36,11 +36,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
         ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
         activityComponent = RobomaticsApp.getAppComponent()
                 .createActivityComponent(new RouterModule(this));
         activityComponent.inject(this);
         baseActivityRouter.replaceFragment(getFirstFragment());
-        setSupportActionBar(toolbar);
+    }
+
+    public Toolbar getToolbar() {
+        return toolbar;
     }
 
     protected abstract BaseFragment getFirstFragment();

@@ -5,6 +5,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,7 +62,24 @@ public abstract class BaseFirebaseRepository {
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    e.onNext(dataSnapshot.getValue(clazz));
+                    T val = dataSnapshot.getValue(clazz);
+                    if (val == null) {
+                        e.onComplete();
+                        return;
+                    }
+                    // TODO: 18.05.17 WARNING!!!
+                    try {
+                        Field f = clazz.getDeclaredField("id");
+                        f.setAccessible(true);
+                        if (f != null && f.getType() == String.class) {
+                            f.set(val, dataSnapshot.getKey());
+                        }
+                    } catch (NoSuchFieldException e1) {
+                        e1.printStackTrace();
+                    } catch (IllegalAccessException e1) {
+                        e1.printStackTrace();
+                    }
+                    e.onNext(val);
                     e.onComplete();
                 }
 
@@ -73,11 +91,22 @@ public abstract class BaseFirebaseRepository {
         }, BackpressureStrategy.BUFFER);
     }
 
-    protected <T> Flowable<T> setData(T data, DatabaseReference ref) {
+    protected <T> Flowable<String> setData(T data, DatabaseReference ref) {
         return Flowable.create(e -> {
+            try {
+                Field f = data.getClass().getDeclaredField("id");
+                f.setAccessible(true);
+                if (f != null && f.getType() == String.class) {
+                    f.set(data, null);
+                }
+            } catch (NoSuchFieldException e1) {
+                e1.printStackTrace();
+            } catch (IllegalAccessException e1) {
+                e1.printStackTrace();
+            }
             ref.setValue(data).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
-                    e.onNext(data);
+                    e.onNext(ref.getKey());
                     e.onComplete();
                 } else {
                     e.onError(new RuntimeException("Can't set data"));

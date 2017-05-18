@@ -1,8 +1,10 @@
 package ua.nure.havrysh.robomatics.ui.fragment;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
@@ -48,6 +50,19 @@ public class MySketchesFragment extends BaseFragment implements MySketchesView {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        presenter.initView();
+    }
+
+    @Override
+    protected void setupToolbar(Toolbar toolbar, ActionBar actionBar) {
+        super.setupToolbar(toolbar, actionBar);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        toolbar.setTitle("My sketches");
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.fragment_my_sketches;
     }
@@ -65,7 +80,7 @@ public class MySketchesFragment extends BaseFragment implements MySketchesView {
     }
 
     @OnClick(R.id.add_sketch_fab)
-    void onSketchAddClick(){
+    void onSketchAddClick() {
         presenter.addSketch();
     }
 }
