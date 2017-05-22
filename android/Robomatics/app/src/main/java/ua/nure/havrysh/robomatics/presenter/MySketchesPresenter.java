@@ -18,7 +18,7 @@ public class MySketchesPresenter extends BasePresenter<MySketchesRouter, MySketc
 
     @Override
     public void initView() {
-        subscribeNewThread(sketchFacade.getCurrentUserSketches(),
+        subscribeWithProgress(sketchFacade.getCurrentUserSketches(),
                 sketchUiModels -> useView(v -> v.showSketches(sketchUiModels)));
     }
 

@@ -14,11 +14,11 @@ public class SketchPresenter extends BasePresenter<SketchRouter, SketchView> {
     }
 
     public void loadSketch(String id) {
-        subscribeNewThread(sketchFacade.getSketch(id), sketch -> useView(v -> v.showSketch(sketch)));
+        subscribeWithProgress(sketchFacade.getSketch(id), sketch -> useView(v -> v.showSketch(sketch)));
     }
 
     public void save(String id, String title, String code) {
-        subscribeNewThread(sketchFacade.saveSketch(id, title, code), sketch -> getRouter().finish());
+        subscribeWithProgress(sketchFacade.saveSketch(id, title, code), sketch -> getRouter().finish());
     }
 
     public void ride(String code) {

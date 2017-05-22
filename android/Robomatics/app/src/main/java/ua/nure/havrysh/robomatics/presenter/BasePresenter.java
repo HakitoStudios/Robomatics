@@ -1,7 +1,5 @@
 package ua.nure.havrysh.robomatics.presenter;
 
-import android.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import io.reactivex.Flowable;
@@ -24,11 +22,11 @@ public abstract class BasePresenter<R extends Router, V extends View> {
         return router;
     }
 
-    public void onCreate(){
+    public void onCreate() {
 
     }
 
-    public void initView(){
+    public void initView() {
 
     }
 
@@ -49,6 +47,14 @@ public abstract class BasePresenter<R extends Router, V extends View> {
     protected <T> void subscribeNewThread(Flowable<T> flowable, Consumer<T> consumer) {
         flowable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(consumer, this::handleError);
+    }
+
+    protected <T> void subscribeWithProgress(Flowable<T> flowable, Consumer<T> consumer) {
+        router.showProgress();
+        flowable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnComplete(router::hideProgress)
                 .subscribe(consumer, this::handleError);
     }
 

@@ -34,7 +34,7 @@ public class MainNavPresenter extends BasePresenter<MainNavRouter, MainNavView> 
     @Override
     public void initView() {
         super.initView();
-        subscribeNewThread(userFacade.getCurrentUser(), userUIModel -> useView(v -> v.showUser(userUIModel)));
+        subscribeWithProgress(userFacade.getCurrentUser(), userUIModel -> useView(v -> v.showUser(userUIModel)));
     }
 
     public void signOut() {
@@ -46,7 +46,7 @@ public class MainNavPresenter extends BasePresenter<MainNavRouter, MainNavView> 
         if (user == null) {
             signIn();
         } else {
-            subscribeNewThread(userFacade.checkUserForRegistration(user.getUid()), aBoolean -> {
+            subscribeWithProgress(userFacade.checkUserForRegistration(user.getUid()), aBoolean -> {
                 initView();
             });
         }
