@@ -1,15 +1,9 @@
 package ua.nure.havrysh.robomatics.utils;
 
 public class RhinoUtils {
-    public static final String SKETCH_TEMPLATE = "var a;\n" +
-            "var b;\n" +
-            "\n" +
-            "a = 4;\n" +
-            "b = a;\n" +
-            "\n" +
-            "function tick(d){\n" +
-            "\ta++;\n" +
-            "\tb = a * 2;\n" +
+    public static final String SKETCH_TEMPLATE = "function tick() {\n" +
+            "\toutput.steer = input.seekH;\n" +
+            "\toutput.throttle = input.seekV;\n" +
             "}\n";
     public static final String MAIN_LOOP = "\nwhile(true){\n" +
             "tick();\n" +

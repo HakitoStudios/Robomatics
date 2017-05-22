@@ -24,4 +24,8 @@ public class SketchPresenter extends BasePresenter<SketchRouter, SketchView> {
     public void ride(String code) {
         getRouter().ride(code);
     }
+
+    public void showHelp() {
+        getRouter().showHelp();
+    }
 }

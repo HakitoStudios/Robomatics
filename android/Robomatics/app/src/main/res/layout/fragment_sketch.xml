@@ -27,5 +27,6 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/try_out_fab"
+        android:src="@drawable/ic_car_connected"
         style="@style/FAB" />
 </android.support.v7.widget.ContentFrameLayout>

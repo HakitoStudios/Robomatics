@@ -8,6 +8,7 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_sketch_fab"
+        android:src="@drawable/ic_plus"
         style="@style/FAB" />
 
     <TextView

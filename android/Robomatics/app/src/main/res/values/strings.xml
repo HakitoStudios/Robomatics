@@ -1,4 +1,22 @@
 <resources>
     <string name="facebook_application_id" translatable="false">1682299632064566</string>
     <string name="app_name">Robomatics</string>
+
+    <string name="scripting_help">
+        Here you can use regular Javascript language to create your own algorithm!\n
+        \n
+        Function tick() is called many times per second, so put your realtime logic here.\n
+        You can use certain variables and methods.\n
+        \n
+        Use following fields to access data from sensors (read):\n
+        \tinput.seekH - horizontal seekbar [-1;1]\n
+        \tinput.seekV - vertical seekbar [-1;1]\n
+        \tinput.accX - x-axis of accelerometer\n
+        \tinput.accY - y-axis of accelerometer\n
+        \tinput.accZ - z-axis of accelerometer\n
+        \n
+        Use following fields to control the car (write):\n
+        \toutput.steer - control steer [-1;1] [left, right]\n
+        \toutput.throttle - control throttle [-1;1] [back, forward]\n
+    </string>
 </resources>

@@ -2,14 +2,12 @@ package ua.nure.havrysh.robomatics.ui.fragment;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.faendir.rhino_android.RhinoAndroidHelper;
 
@@ -162,20 +160,17 @@ public class RideFragment extends BaseFragment {
 
         final int interval = Integer.valueOf(preferences.getString(PREF_INTERVAL, "100"));
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    dataSender = new DataSender(preferences.getString(PREF_ADDRESS, "192.168.4.1:81"), outputParams);
-                } catch (final IOException e) {
-                    new Handler().post(() -> Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show());
-                    return;
-                    //throw new RuntimeException(e);
-                }
-                dataSender.setDebugView(debugText);
-                dataSender.setInterval(interval);
-                dataSender.execute();
+        new Thread(() -> {
+            try {
+                dataSender = new DataSender(preferences.getString(PREF_ADDRESS, "192.168.4.1:81"), outputParams);
+            } catch (final IOException e) {
+//                new Handler().post(() -> Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show());
+                return;
+                //throw new RuntimeException(e);
             }
+            dataSender.setDebugView(debugText);
+            dataSender.setInterval(interval);
+            dataSender.execute();
         }).start();
     }
 

@@ -48,7 +48,7 @@ public class SketchFragment extends BaseFragment implements SketchView {
 
     @Override
     protected int getMenuId() {
-        return ownSketch ? R.menu.done : 0;
+        return ownSketch ? R.menu.sketch_edit : 0;
     }
 
     @Override
@@ -67,6 +67,9 @@ public class SketchFragment extends BaseFragment implements SketchView {
             presenter.save(getArguments().getString(SKETCH_ID_ARG),
                     sketchTitleEditText.getText().toString(),
                     codeEditText.getText().toString());
+            return true;
+        } else if (item.getItemId() == R.id.action_help) {
+            presenter.showHelp();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -106,7 +109,7 @@ public class SketchFragment extends BaseFragment implements SketchView {
     }
 
     @OnClick(R.id.try_out_fab)
-    void onRideClick(){
+    void onRideClick() {
         presenter.ride(codeEditText.getText().toString());
     }
 }
