@@ -6,18 +6,9 @@ import java.util.List;
 
 public class User {
 
-    private int stub;
     private String name;
     private String login;
     private HashMap<String, Object> sketches;
-
-    public int isStub() {
-        return stub;
-    }
-
-    public void setStub(int stub) {
-        this.stub = stub;
-    }
 
     public String getName() {
         return name;
@@ -36,7 +27,7 @@ public class User {
     }
 
     public List<String> getSketches() {
-        return new ArrayList<>(sketches.keySet());
+        return sketches == null ? new ArrayList<>() : new ArrayList<>(sketches.keySet());
     }
 
     public void setSketches(HashMap<String, Object> sketches) {

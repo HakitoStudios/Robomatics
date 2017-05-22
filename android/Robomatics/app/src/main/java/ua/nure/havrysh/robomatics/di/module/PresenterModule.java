@@ -7,9 +7,11 @@ import ua.nure.havrysh.robomatics.domain.facade.UserFacade;
 import ua.nure.havrysh.robomatics.mapper.FirebaseUserToUIMapper;
 import ua.nure.havrysh.robomatics.presenter.MainNavPresenter;
 import ua.nure.havrysh.robomatics.presenter.MySketchesPresenter;
+import ua.nure.havrysh.robomatics.presenter.RidePresenter;
 import ua.nure.havrysh.robomatics.presenter.SketchPresenter;
 import ua.nure.havrysh.robomatics.router.base.MainNavRouter;
 import ua.nure.havrysh.robomatics.router.base.MySketchesRouter;
+import ua.nure.havrysh.robomatics.router.base.RideRouter;
 import ua.nure.havrysh.robomatics.router.base.SketchRouter;
 
 @Module
@@ -28,5 +30,10 @@ public class PresenterModule {
     @Provides
     public SketchPresenter provideSketchPresenter(SketchRouter router, SketchFacade facade) {
         return new SketchPresenter(router, facade);
+    }
+
+    @Provides
+    public RidePresenter provideRidePresenter(RideRouter router) {
+        return new RidePresenter(router);
     }
 }

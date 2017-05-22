@@ -1,7 +1,7 @@
 package ua.nure.havrysh.robomatics.presenter;
 
-import android.app.ActionBar;
-import android.support.v7.widget.Toolbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import ua.nure.havrysh.robomatics.domain.facade.UserFacade;
 import ua.nure.havrysh.robomatics.mapper.FirebaseUserToUIMapper;
@@ -42,15 +42,26 @@ public class MainNavPresenter extends BasePresenter<MainNavRouter, MainNavView> 
     }
 
     public void onSignedIn() {
-        subscribeNewThread(userFacade.checkUserForRegistration(), aBoolean -> {initView();});
-
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            signIn();
+        } else {
+            subscribeNewThread(userFacade.checkUserForRegistration(user.getUid()), aBoolean -> {
+                initView();
+            });
+        }
     }
 
     public void onSignInFailed() {
         getRouter().finish();
+
     }
 
     public void showMySketches() {
         getRouter().showMySketches();
+    }
+
+    public void showSettings() {
+        getRouter().showSettings();
     }
 }

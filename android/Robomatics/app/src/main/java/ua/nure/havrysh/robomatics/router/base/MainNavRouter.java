@@ -11,4 +11,6 @@ public interface MainNavRouter extends Router {
     void signOut(Consumer<Boolean> onComplete);
 
     void showMySketches();
+
+    void showSettings();
 }

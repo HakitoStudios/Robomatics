@@ -31,23 +31,13 @@
                     android:text="My sketches" />
 
                 <android.support.v7.widget.AppCompatButton
-                    android:id="@+id/favourites_button"
+                    android:id="@+id/all_sketches_button"
                     style="@style/GlobalGridNavButton"
-                    android:text="Favourites" />
+                    android:text="All sketches" />
 
             </android.support.v7.widget.LinearLayoutCompat>
 
-            <android.support.v7.widget.LinearLayoutCompat style="@style/WideContent.Horizontal">
 
-                <android.support.v7.widget.AppCompatButton
-                    style="@style/GlobalGridNavButton"
-                    android:text="Something" />
-
-                <android.support.v7.widget.AppCompatButton
-                    style="@style/GlobalGridNavButton"
-                    android:text="Something" />
-
-            </android.support.v7.widget.LinearLayoutCompat>
         </android.support.v7.widget.LinearLayoutCompat>
 
         <android.support.v7.widget.LinearLayoutCompat style="@style/WideContent.Vertical">

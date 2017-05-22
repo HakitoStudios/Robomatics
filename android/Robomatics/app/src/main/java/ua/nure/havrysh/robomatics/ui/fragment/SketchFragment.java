@@ -10,6 +10,7 @@ import android.widget.EditText;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import ua.nure.havrysh.robomatics.R;
 import ua.nure.havrysh.robomatics.di.component.ActivityComponent;
 import ua.nure.havrysh.robomatics.presenter.BasePresenter;
@@ -17,6 +18,7 @@ import ua.nure.havrysh.robomatics.presenter.SketchPresenter;
 import ua.nure.havrysh.robomatics.presenter.view.SketchView;
 import ua.nure.havrysh.robomatics.ui.activity.SketchActivity;
 import ua.nure.havrysh.robomatics.ui.model.SketchUiModel;
+import ua.nure.havrysh.robomatics.utils.RhinoUtils;
 
 public class SketchFragment extends BaseFragment implements SketchView {
     private static final String SKETCH_ID_ARG = "SKETCH_ID_ARG";
@@ -30,7 +32,7 @@ public class SketchFragment extends BaseFragment implements SketchView {
     @BindView(R.id.code_edit_text)
     EditText codeEditText;
 
-    private boolean ownSketch=true;
+    private boolean ownSketch = true;
 
     public static SketchFragment newInstance(SketchActivity sketchActivity) {
         SketchFragment fragment = new SketchFragment();
@@ -53,7 +55,7 @@ public class SketchFragment extends BaseFragment implements SketchView {
     protected void initViews(Bundle savedInstanceState) {
         String sketchId = getArguments().getString(SKETCH_ID_ARG);
         if (TextUtils.isEmpty(sketchId)) {
-
+            codeEditText.setText(RhinoUtils.SKETCH_TEMPLATE);
         } else {
             presenter.loadSketch(sketchId);
         }
@@ -101,5 +103,10 @@ public class SketchFragment extends BaseFragment implements SketchView {
 
         sketchTitleEditText.setEnabled(own);
         codeEditText.setEnabled(own);
+    }
+
+    @OnClick(R.id.try_out_fab)
+    void onRideClick(){
+        presenter.ride(codeEditText.getText().toString());
     }
 }

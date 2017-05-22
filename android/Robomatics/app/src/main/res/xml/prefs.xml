@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:defaultValue="80"
+        android:key="left"
+        android:numeric="integer|signed"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="Steering Left" />
+    <EditTextPreference
+        android:defaultValue="100"
+        android:key="right"
+        android:numeric="integer|signed"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="Steering Right" />
+    <EditTextPreference
+        android:defaultValue="100"
+        android:key="interval"
+        android:numeric="integer"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="Command Interval" />
+
+    <EditTextPreference
+        android:defaultValue="192.168.4.1:81"
+        android:key="address"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="Car IP Address" />
+</PreferenceScreen>

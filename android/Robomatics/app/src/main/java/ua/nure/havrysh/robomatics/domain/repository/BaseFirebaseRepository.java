@@ -3,6 +3,7 @@ package ua.nure.havrysh.robomatics.domain.repository;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.lang.reflect.Field;
@@ -12,8 +13,13 @@ import java.util.List;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import ua.nure.havrysh.robomatics.domain.model.Marker;
+import ua.nure.havrysh.robomatics.utils.exception.ItemNotFoundException;
 
 public abstract class BaseFirebaseRepository {
+
+    protected DatabaseReference ref(String child){
+        return FirebaseDatabase.getInstance().getReference(child);
+    }
 
     protected Flowable<List<Marker>> getMarkers(DatabaseReference ref) {
         return Flowable.create(e -> {
@@ -64,7 +70,7 @@ public abstract class BaseFirebaseRepository {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     T val = dataSnapshot.getValue(clazz);
                     if (val == null) {
-                        e.onComplete();
+                        e.onError(new ItemNotFoundException(ref.toString()));
                         return;
                     }
                     // TODO: 18.05.17 WARNING!!!
@@ -75,9 +81,9 @@ public abstract class BaseFirebaseRepository {
                             f.set(val, dataSnapshot.getKey());
                         }
                     } catch (NoSuchFieldException e1) {
-                        e1.printStackTrace();
+                        //e1.printStackTrace();
                     } catch (IllegalAccessException e1) {
-                        e1.printStackTrace();
+//                        e1.printStackTrace();
                     }
                     e.onNext(val);
                     e.onComplete();
@@ -100,9 +106,9 @@ public abstract class BaseFirebaseRepository {
                     f.set(data, null);
                 }
             } catch (NoSuchFieldException e1) {
-                e1.printStackTrace();
+                //e1.printStackTrace();
             } catch (IllegalAccessException e1) {
-                e1.printStackTrace();
+                //e1.printStackTrace();
             }
             ref.setValue(data).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {

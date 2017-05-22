@@ -9,6 +9,7 @@ import ua.nure.havrysh.robomatics.router.BaseRouter;
 import ua.nure.havrysh.robomatics.router.base.MainNavRouter;
 import ua.nure.havrysh.robomatics.ui.activity.BaseActivity;
 import ua.nure.havrysh.robomatics.ui.activity.MySketchesActivity;
+import ua.nure.havrysh.robomatics.ui.activity.PrefsActivity;
 
 public class MainNavRouterImpl extends BaseRouter implements MainNavRouter {
 
@@ -40,5 +41,10 @@ public class MainNavRouterImpl extends BaseRouter implements MainNavRouter {
     @Override
     public void showMySketches() {
         startActivity(MySketchesActivity.class);
+    }
+
+    @Override
+    public void showSettings() {
+        startActivity(PrefsActivity.class);
     }
 }

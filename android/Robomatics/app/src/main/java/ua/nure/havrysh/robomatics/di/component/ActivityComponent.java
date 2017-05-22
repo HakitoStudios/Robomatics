@@ -9,6 +9,7 @@ import ua.nure.havrysh.robomatics.di.module.RouterModule;
 import ua.nure.havrysh.robomatics.ui.activity.BaseActivity;
 import ua.nure.havrysh.robomatics.ui.fragment.MainNavFragment;
 import ua.nure.havrysh.robomatics.ui.fragment.MySketchesFragment;
+import ua.nure.havrysh.robomatics.ui.fragment.RideFragment;
 import ua.nure.havrysh.robomatics.ui.fragment.SketchFragment;
 
 @Subcomponent(modules = {RouterModule.class, PresenterModule.class, FacadeModule.class, RepositoryModule.class, MapperModule.class})
@@ -20,4 +21,6 @@ public interface ActivityComponent {
     void inject(MySketchesFragment fragment);
 
     void inject(SketchFragment fragment);
+
+    void inject(RideFragment rideFragment);
 }

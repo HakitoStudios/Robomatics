@@ -5,10 +5,12 @@ import dagger.Provides;
 import ua.nure.havrysh.robomatics.router.base.BaseActivityRouter;
 import ua.nure.havrysh.robomatics.router.base.MainNavRouter;
 import ua.nure.havrysh.robomatics.router.base.MySketchesRouter;
+import ua.nure.havrysh.robomatics.router.base.RideRouter;
 import ua.nure.havrysh.robomatics.router.base.SketchRouter;
 import ua.nure.havrysh.robomatics.router.impl.BaseActivityRouterImpl;
 import ua.nure.havrysh.robomatics.router.impl.MainNavRouterImpl;
 import ua.nure.havrysh.robomatics.router.impl.MySketchesRouterImpl;
+import ua.nure.havrysh.robomatics.router.impl.RideRouterImpl;
 import ua.nure.havrysh.robomatics.router.impl.SketchRouterImpl;
 import ua.nure.havrysh.robomatics.ui.activity.BaseActivity;
 
@@ -36,7 +38,12 @@ public class RouterModule {
     }
 
     @Provides
-    public SketchRouter provideSketchRouter(){
+    public SketchRouter provideSketchRouter() {
         return new SketchRouterImpl(baseActivity);
+    }
+
+    @Provides
+    public RideRouter provideRideRouter() {
+        return new RideRouterImpl(baseActivity);
     }
 }

@@ -37,16 +37,15 @@ public class UserFacade {
         String id = firebaseUser.getUid();
         return Flowable.just(firebaseUser)
                 .map(new FirebaseUserToUIMapper())
-                .zipWith(userRepository.getUser(id), (userUIModel, user) -> {
+                .zipWith(userRepository.getUser(id)
+                        .onErrorResumeNext(Flowable.just(new User())),
+                        (userUIModel, user) -> {
                     userUIModel.setSketches(user.getSketches());
                     return userUIModel;
                 });
     }
 
-    public Flowable<String> checkUserForRegistration() {
-        User user = new User();
-        user.setStub(new Random().nextInt());
-        return userRepository.push(user, FirebaseAuth.getInstance().getCurrentUser().getUid());
-
+    public Flowable<String> checkUserForRegistration(String userId) {
+        return userRepository.getUser(userId).onErrorResumeNext(userRepository.putTempUser(userId).map(s -> new User())).map(user -> userId);
     }
 }
