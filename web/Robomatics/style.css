@@ -8,9 +8,15 @@
 }
 
 .item {
-    background: green;
+    border-radius: 5px;
+    padding:10px;
+    background: rgb(10, 159, 145);
     cursor: pointer;
     margin: 10px;
+}
+
+.item:hover{
+    background: green;
 }
 
 #progress {
@@ -21,4 +27,18 @@
     left:0;
     position: absolute;
     background: rgba(137, 221, 113, 0.84);;
+}
+
+textarea{
+	width:50%;
+	height:400px;
+}
+
+a{
+	border-radius:4px;
+	padding:10px;
+	background:rgb(10, 125, 145);
+}
+a:hover{
+	background:rgb(10, 92, 145);
 }
