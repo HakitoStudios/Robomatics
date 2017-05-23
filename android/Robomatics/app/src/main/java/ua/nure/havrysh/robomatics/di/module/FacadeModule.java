@@ -10,12 +10,12 @@ import ua.nure.havrysh.robomatics.domain.repository.UserRepository;
 @Module
 public class FacadeModule {
     @Provides
-    UserFacade provideUserFacade(UserRepository userRepository){
+    UserFacade provideUserFacade(UserRepository userRepository) {
         return new UserFacade(userRepository);
     }
 
     @Provides
-    SketchFacade provideSketchFacade(UserFacade userFacade, SketchRepository sketchRepository){
+    SketchFacade provideSketchFacade(UserFacade userFacade, SketchRepository sketchRepository) {
         return new SketchFacade(userFacade, sketchRepository);
     }
 }

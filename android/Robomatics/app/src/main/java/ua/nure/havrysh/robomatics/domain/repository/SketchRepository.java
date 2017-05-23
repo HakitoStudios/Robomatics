@@ -31,7 +31,7 @@ public class SketchRepository extends BaseFirebaseRepository {
                 .toFlowable();
     }
 
-    public Flowable<List<Sketch>> getAllSketches(){
+    public Flowable<List<Sketch>> getAllSketches() {
         return getDataList(Sketch.class, ref(SKETCHES_NODE));
     }
 }

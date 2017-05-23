@@ -1,12 +1,7 @@
 package ua.nure.havrysh.robomatics.ui.widget;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.AppCompatEditText;
-import android.text.Editable;
-import android.text.Spannable;
-import android.text.TextWatcher;
-import android.text.style.ForegroundColorSpan;
 import android.util.AttributeSet;
 
 public class CodeEditText extends AppCompatEditText {

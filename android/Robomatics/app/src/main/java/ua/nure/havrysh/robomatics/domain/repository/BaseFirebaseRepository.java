@@ -115,9 +115,9 @@ public abstract class BaseFirebaseRepository {
                     f.set(data, null);
                 }
             } catch (NoSuchFieldException e1) {
-                //e1.printStackTrace();
+                //none
             } catch (IllegalAccessException e1) {
-                //e1.printStackTrace();
+                e1.printStackTrace();
             }
             ref.setValue(data).addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {

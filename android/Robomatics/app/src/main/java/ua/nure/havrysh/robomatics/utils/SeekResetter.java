@@ -17,9 +17,8 @@ public class SeekResetter implements ProgressBar.OnTouchListener {
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        ProgressBar pb = (ProgressBar)v;
-        if(event.getAction() == MotionEvent.ACTION_UP)
-        {
+        ProgressBar pb = (ProgressBar) v;
+        if (event.getAction() == MotionEvent.ACTION_UP) {
             pb.setProgress(defaultProgress);
             return true;
         }

@@ -18,8 +18,6 @@ import ua.nure.havrysh.robomatics.router.base.MainNavRouter;
 import ua.nure.havrysh.robomatics.ui.model.UserUIModel;
 import ua.nure.havrysh.robomatics.utils.ImageUtils;
 
-import static android.app.Activity.RESULT_OK;
-
 public class MainNavFragment extends BaseFragment implements MainNavView {
 
     @BindView(R.id.avatar_image_view)
@@ -57,7 +55,7 @@ public class MainNavFragment extends BaseFragment implements MainNavView {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == MainNavRouter.SIGN_IN_CODE) {
-                mainNavPresenter.onSignedIn();
+            mainNavPresenter.onSignedIn();
         }
     }
 
@@ -73,17 +71,17 @@ public class MainNavFragment extends BaseFragment implements MainNavView {
     }
 
     @OnClick(R.id.my_sketches_button)
-    void onMySketchesClick(){
+    void onMySketchesClick() {
         mainNavPresenter.showMySketches();
     }
 
     @OnClick(R.id.all_sketches_button)
-    void onAllSketchesClick(){
+    void onAllSketchesClick() {
         mainNavPresenter.showAllSketches();
     }
 
     @OnClick(R.id.settings_button)
-    void onSettingsClick(){
+    void onSettingsClick() {
         mainNavPresenter.showSettings();
     }
 }

@@ -13,10 +13,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.ViewGroup;
 
-import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.auth.api.Auth;
-import com.google.firebase.auth.FirebaseAuth;
-
 import butterknife.ButterKnife;
 import ua.nure.havrysh.robomatics.di.component.ActivityComponent;
 import ua.nure.havrysh.robomatics.presenter.BasePresenter;

@@ -1,6 +1,5 @@
 package ua.nure.havrysh.robomatics;
 
-import android.app.Application;
 import android.support.multidex.MultiDexApplication;
 
 import ua.nure.havrysh.robomatics.di.component.AppComponent;

@@ -18,16 +18,16 @@ public class OutputParams {
     }
 
     public float getSteer() {
-        if(output==null){
+        if (output == null) {
             return 0;
         }
-        return (float) steerNormalizer.normalize(((OutputConsumerModel)output).jsGet_steer());
+        return (float) steerNormalizer.normalize(((OutputConsumerModel) output).jsGet_steer());
     }
 
     public float getThrottle() {
-        if(output==null){
+        if (output == null) {
             return 0;
         }
-        return (float) throttleNormalizer.normalize(((OutputConsumerModel)output).jsGet_throttle());
+        return (float) throttleNormalizer.normalize(((OutputConsumerModel) output).jsGet_throttle());
     }
 }

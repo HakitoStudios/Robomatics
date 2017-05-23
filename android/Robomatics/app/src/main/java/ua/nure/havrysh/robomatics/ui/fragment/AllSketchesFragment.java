@@ -16,12 +16,11 @@ import ua.nure.havrysh.robomatics.R;
 import ua.nure.havrysh.robomatics.di.component.ActivityComponent;
 import ua.nure.havrysh.robomatics.presenter.AllSketchesPresenter;
 import ua.nure.havrysh.robomatics.presenter.BasePresenter;
-import ua.nure.havrysh.robomatics.presenter.MySketchesPresenter;
 import ua.nure.havrysh.robomatics.presenter.view.AllSketchesView;
 import ua.nure.havrysh.robomatics.ui.adapter.SketchesAdapter;
 import ua.nure.havrysh.robomatics.ui.model.SketchUiModel;
 
-public class AllSketchesFragment extends BaseFragment implements AllSketchesView{
+public class AllSketchesFragment extends BaseFragment implements AllSketchesView {
 
     @Inject
     AllSketchesPresenter presenter;

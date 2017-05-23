@@ -33,10 +33,10 @@ public class DataSender extends AsyncTask<Void, Void, Void> {
         stream = new OutputStreamWriter(socket.getOutputStream());
     }
 
-public void stop() throws IOException {
-    socket.close();
-    socket=null;
-}
+    public void stop() throws IOException {
+        socket.close();
+        socket = null;
+    }
 
     private void debug(final String s) {
         if (debugView != null) {
@@ -58,8 +58,8 @@ public void stop() throws IOException {
     }
 
     private String getCommandString() {
-        String res = String.format("m=%3ds=%3d", (int)outputParams.getThrottle(),
-                (int)outputParams.getSteer()).replace(' ', '0');
+        String res = String.format("m=%3ds=%3d", (int) outputParams.getThrottle(),
+                (int) outputParams.getSteer()).replace(' ', '0');
         return res;
     }
 

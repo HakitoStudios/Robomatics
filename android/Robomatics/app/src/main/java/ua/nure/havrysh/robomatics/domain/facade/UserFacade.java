@@ -4,7 +4,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
-import java.util.Random;
 
 import io.reactivex.Flowable;
 import ua.nure.havrysh.robomatics.domain.model.User;
@@ -25,7 +24,6 @@ public class UserFacade {
     }
 
     public Flowable<String> addSketchToIndex(String sketchId) {
-
         return getCurrentUser().flatMap(user -> userRepository.addSketchToIndex(user.getId(), sketchId));
     }
 
@@ -38,11 +36,11 @@ public class UserFacade {
         return Flowable.just(firebaseUser)
                 .map(new FirebaseUserToUIMapper())
                 .zipWith(userRepository.getUser(id)
-                        .onErrorResumeNext(Flowable.just(new User())),
+                                .onErrorResumeNext(Flowable.just(new User())),
                         (userUIModel, user) -> {
-                    userUIModel.setSketches(user.getSketches());
-                    return userUIModel;
-                });
+                            userUIModel.setSketches(user.getSketches());
+                            return userUIModel;
+                        });
     }
 
     public Flowable<String> checkUserForRegistration(String userId) {

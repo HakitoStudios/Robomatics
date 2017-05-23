@@ -23,11 +23,11 @@ public abstract class BasePresenter<R extends Router, V extends View> {
     }
 
     public void onCreate() {
-
+        //none
     }
 
     public void initView() {
-
+        //none
     }
 
     protected void useView(Consumer<V> consumer) {
@@ -67,7 +67,7 @@ public abstract class BasePresenter<R extends Router, V extends View> {
         onError(t);
     }
 
-    public void showMessageDialog(String message){
+    public void showMessageDialog(String message) {
         router.showMessageDialog(message);
     }
 }

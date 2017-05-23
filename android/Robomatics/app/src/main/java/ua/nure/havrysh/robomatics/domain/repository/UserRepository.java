@@ -37,7 +37,7 @@ public class UserRepository extends BaseFirebaseRepository {
         return getData(User.class, FirebaseDatabase.getInstance().getReference(USERS).child(id));
     }
 
-    public Flowable<String> putTempUser(String userId){
+    public Flowable<String> putTempUser(String userId) {
         return setData("temp", ref(USERS).child(userId).child("temp"));
     }
 }
