@@ -29,6 +29,10 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
+            android:name=".ui.activity.AllSketchesActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".ui.activity.SketchActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />

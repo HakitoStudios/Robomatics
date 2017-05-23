@@ -78,7 +78,7 @@ public class SketchFragment extends BaseFragment implements SketchView {
     @Override
     protected void setupToolbar(Toolbar toolbar, ActionBar actionBar) {
         super.setupToolbar(toolbar, actionBar);
-        toolbar.setTitle("Sketch");
+        actionBar.setTitle("Sketch");
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
@@ -94,7 +94,8 @@ public class SketchFragment extends BaseFragment implements SketchView {
     }
 
     @Override
-    public void showSketch(SketchUiModel sketchUiModel) {
+    public void showSketch(SketchUiModel sketchUiModel, boolean own) {
+        setOwn(own);
         sketchTitleEditText.setText(sketchUiModel.getName());
         codeEditText.setText(sketchUiModel.getCode());
     }
@@ -102,8 +103,8 @@ public class SketchFragment extends BaseFragment implements SketchView {
     @Override
     public void setOwn(boolean own) {
         ownSketch = own;
+        setHasOptionsMenu(own);
         getActivity().supportInvalidateOptionsMenu();
-
         sketchTitleEditText.setEnabled(own);
         codeEditText.setEnabled(own);
     }

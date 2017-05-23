@@ -5,10 +5,12 @@ import dagger.Provides;
 import ua.nure.havrysh.robomatics.domain.facade.SketchFacade;
 import ua.nure.havrysh.robomatics.domain.facade.UserFacade;
 import ua.nure.havrysh.robomatics.mapper.FirebaseUserToUIMapper;
+import ua.nure.havrysh.robomatics.presenter.AllSketchesPresenter;
 import ua.nure.havrysh.robomatics.presenter.MainNavPresenter;
 import ua.nure.havrysh.robomatics.presenter.MySketchesPresenter;
 import ua.nure.havrysh.robomatics.presenter.RidePresenter;
 import ua.nure.havrysh.robomatics.presenter.SketchPresenter;
+import ua.nure.havrysh.robomatics.router.base.AllSketchesRouter;
 import ua.nure.havrysh.robomatics.router.base.MainNavRouter;
 import ua.nure.havrysh.robomatics.router.base.MySketchesRouter;
 import ua.nure.havrysh.robomatics.router.base.RideRouter;
@@ -35,5 +37,10 @@ public class PresenterModule {
     @Provides
     public RidePresenter provideRidePresenter(RideRouter router) {
         return new RidePresenter(router);
+    }
+
+    @Provides
+    public AllSketchesPresenter provideAllSketchesPresenter(AllSketchesRouter router, SketchFacade facade) {
+        return new AllSketchesPresenter(router, facade);
     }
 }

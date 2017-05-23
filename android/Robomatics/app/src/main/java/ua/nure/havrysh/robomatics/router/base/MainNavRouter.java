@@ -13,4 +13,6 @@ public interface MainNavRouter extends Router {
     void showMySketches();
 
     void showSettings();
+
+    void showAllSketches();
 }

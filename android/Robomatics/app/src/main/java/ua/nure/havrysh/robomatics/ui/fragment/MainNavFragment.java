@@ -57,11 +57,7 @@ public class MainNavFragment extends BaseFragment implements MainNavView {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == MainNavRouter.SIGN_IN_CODE) {
-           // if (resultCode == RESULT_OK) {
                 mainNavPresenter.onSignedIn();
-            //} else {
-              //  mainNavPresenter.onSignInFailed();
-           // }
         }
     }
 
@@ -79,6 +75,11 @@ public class MainNavFragment extends BaseFragment implements MainNavView {
     @OnClick(R.id.my_sketches_button)
     void onMySketchesClick(){
         mainNavPresenter.showMySketches();
+    }
+
+    @OnClick(R.id.all_sketches_button)
+    void onAllSketchesClick(){
+        mainNavPresenter.showAllSketches();
     }
 
     @OnClick(R.id.settings_button)

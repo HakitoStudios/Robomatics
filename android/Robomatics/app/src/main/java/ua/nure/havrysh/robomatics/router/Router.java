@@ -6,4 +6,6 @@ public interface Router {
     void showProgress();
 
     void hideProgress();
+
+    void showMessageDialog(String text);
 }

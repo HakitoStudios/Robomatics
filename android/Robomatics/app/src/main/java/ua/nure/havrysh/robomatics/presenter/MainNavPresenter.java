@@ -64,4 +64,8 @@ public class MainNavPresenter extends BasePresenter<MainNavRouter, MainNavView> 
     public void showSettings() {
         getRouter().showSettings();
     }
+
+    public void showAllSketches() {
+        getRouter().showAllSketches();
+    }
 }

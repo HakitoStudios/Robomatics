@@ -12,8 +12,12 @@ import android.widget.TextView;
 import com.faendir.rhino_android.RhinoAndroidHelper;
 
 import org.mozilla.javascript.Context;
+import org.mozilla.javascript.EcmaError;
+import org.mozilla.javascript.EvaluatorException;
+import org.mozilla.javascript.Script;
 import org.mozilla.javascript.Scriptable;
 import org.mozilla.javascript.ScriptableObject;
+import org.mozilla.javascript.WrappedException;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -62,6 +66,7 @@ public class RideFragment extends BaseFragment {
     private DataSender dataSender;
     private InputProviderModel inputProviderModel;
     private OutputConsumerModel outputConsumerModel;
+    private Thread jsThread;
 
     private OutputParams outputParams;
 
@@ -116,8 +121,16 @@ public class RideFragment extends BaseFragment {
         scope.put("output", scope, outputConsumerModel);
         outputParams.setOutput(outputConsumerModel);
         String code = getArguments().getString(CODE_ARG) + RhinoUtils.MAIN_LOOP;
-        context.executeScriptWithContinuations(context.compileString(code, "CODE", 0, null), scope);
+        try {
+            Script script = context.compileString(code, "CODE", 0, null);
 
+            context.executeScriptWithContinuations(script, scope);
+        } catch (EvaluatorException | EcmaError e) {
+            getView().post(() -> ridePresenter.showMessageDialog(e.getLocalizedMessage()));
+        } finally {
+            Context.exit();
+            terminateJsThread();
+        }
     }
 
     @Override
@@ -125,13 +138,13 @@ public class RideFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState == null) {
-
-
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
             outputParams = new OutputParams(new Normalizer(Integer.valueOf(preferences.getString(PREF_LEFT, "80")),
                     Integer.valueOf(preferences.getString(PREF_RIGHT, "100"))),
                     new Normalizer(0, 255));
-            new Thread(this::initScriptEngine).start();
+            jsThread = new Thread(this::initScriptEngine);
+            jsThread.setName("Js thread");
+            jsThread.start();
         }
     }
 
@@ -164,14 +177,24 @@ public class RideFragment extends BaseFragment {
             try {
                 dataSender = new DataSender(preferences.getString(PREF_ADDRESS, "192.168.4.1:81"), outputParams);
             } catch (final IOException e) {
-//                new Handler().post(() -> Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show());
                 return;
-                //throw new RuntimeException(e);
             }
             dataSender.setDebugView(debugText);
             dataSender.setInterval(interval);
             dataSender.execute();
         }).start();
+
+    }
+
+    private void terminateJsThread() {
+        if (jsThread != null) {
+            try {
+                Context.throwAsScriptRuntimeEx(new RuntimeException());
+            } catch (WrappedException e) {
+                //none
+            }
+            jsThread.interrupt();
+        }
     }
 
     @Override

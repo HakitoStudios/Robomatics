@@ -21,6 +21,15 @@ public class SketchFacade {
         this.sketchRepository = sketchRepository;
     }
 
+    public Flowable<List<SketchUiModel>> getAllSketches() {
+        return sketchRepository.getAllSketches()
+                .zipWith(userFacade.getCurrentUser(),
+                        (sketches, userUIModel) -> Flowable.fromIterable(sketches)
+                                .map(sketch -> mapSketch(sketch, userUIModel))
+                                .toList()
+                                .blockingGet());
+    }
+
     public Flowable<List<SketchUiModel>> getCurrentUserSketches() {
         return userFacade.getCurrentUser()
                 .flatMap(this::getUserSketches);
@@ -34,7 +43,8 @@ public class SketchFacade {
     }
 
     public Flowable<SketchUiModel> getSketch(String id) {
-        return sketchRepository.getSketch(id).map(new FirebaseSketchToUiMapper());
+        return sketchRepository.getSketch(id).zipWith(userFacade.getCurrentUser(), (sketch, userUIModel) ->
+                Flowable.just(sketch).map(s -> mapSketch(s, userUIModel)).blockingFirst());
     }
 
     public Flowable<List<SketchUiModel>> getUserSketches(UserUIModel user) {
@@ -44,6 +54,11 @@ public class SketchFacade {
                 .map(sketch -> mapSketch(sketch, user))
                 .toList()
                 .toFlowable();
+    }
+
+    public Flowable<Boolean> ownSketch(String sketchId) {
+        return userFacade.getCurrentUser().map(userUIModel ->
+                userUIModel.getSketches().contains(sketchId));
     }
 
     public Flowable<String> saveSketch(String id, String title, String code) {

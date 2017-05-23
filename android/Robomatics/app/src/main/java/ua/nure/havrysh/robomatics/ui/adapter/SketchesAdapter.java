@@ -45,7 +45,6 @@ public class SketchesAdapter extends BaseRecyclerAdapter<SketchUiModel> {
         @Override
         protected void initViews(SketchUiModel item) {
             sketchNameTextView.setText(item.getName());
-            authorTextView.setText("by " + item.getAuthorName());
             codeLinesTextView.setText(String.valueOf(item.getLinesCount()));
             itemView.setOnClickListener(v -> onSketchSelectedListener.onSketchSelected(item));
         }

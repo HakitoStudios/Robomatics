@@ -14,7 +14,7 @@ public class SketchRepository extends BaseFirebaseRepository {
     private static final String SKETCHES_NODE = "sketches";
 
     public Flowable<String> putSketch(Sketch sketch) {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(SKETCHES_NODE);
+        DatabaseReference ref = ref(SKETCHES_NODE);
         ref = TextUtils.isEmpty(sketch.getId()) ? ref.push() : ref.child(sketch.getId());
         return setData(sketch, ref);
     }
@@ -29,5 +29,9 @@ public class SketchRepository extends BaseFirebaseRepository {
                 .flatMap(this::getSketch)
                 .toList()
                 .toFlowable();
+    }
+
+    public Flowable<List<Sketch>> getAllSketches(){
+        return getDataList(Sketch.class, ref(SKETCHES_NODE));
     }
 }

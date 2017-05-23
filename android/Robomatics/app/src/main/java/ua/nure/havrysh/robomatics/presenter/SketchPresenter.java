@@ -1,5 +1,7 @@
 package ua.nure.havrysh.robomatics.presenter;
 
+import android.util.Pair;
+
 import ua.nure.havrysh.robomatics.domain.facade.SketchFacade;
 import ua.nure.havrysh.robomatics.presenter.view.SketchView;
 import ua.nure.havrysh.robomatics.router.base.SketchRouter;
@@ -14,7 +16,10 @@ public class SketchPresenter extends BasePresenter<SketchRouter, SketchView> {
     }
 
     public void loadSketch(String id) {
-        subscribeWithProgress(sketchFacade.getSketch(id), sketch -> useView(v -> v.showSketch(sketch)));
+        subscribeWithProgress(sketchFacade.getSketch(id)
+                        .zipWith(sketchFacade.ownSketch(id),
+                                (sketch, own) -> new Pair<>(sketch, own)),
+                res -> useView(v -> v.showSketch(res.first, res.second)));
     }
 
     public void save(String id, String title, String code) {

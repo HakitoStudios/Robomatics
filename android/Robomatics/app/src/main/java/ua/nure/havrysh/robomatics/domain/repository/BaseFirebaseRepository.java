@@ -1,5 +1,7 @@
 package ua.nure.havrysh.robomatics.domain.repository;
 
+import android.util.Log;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -17,7 +19,9 @@ import ua.nure.havrysh.robomatics.utils.exception.ItemNotFoundException;
 
 public abstract class BaseFirebaseRepository {
 
-    protected DatabaseReference ref(String child){
+    private static final String ID_FIELD = "id";
+
+    protected DatabaseReference ref(String child) {
         return FirebaseDatabase.getInstance().getReference(child);
     }
 
@@ -49,7 +53,9 @@ public abstract class BaseFirebaseRepository {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     List<T> list = new ArrayList<T>();
                     for (DataSnapshot data : dataSnapshot.getChildren()) {
-                        list.add(data.getValue(clazz));
+                        T val = data.getValue(clazz);
+                        populateIdIfNeeded(val, data.getKey());
+                        list.add(val);
                     }
                     e.onNext(list);
                     e.onComplete();
@@ -63,6 +69,20 @@ public abstract class BaseFirebaseRepository {
         }, BackpressureStrategy.BUFFER);
     }
 
+    private void populateIdIfNeeded(Object item, String id) {
+        try {
+            Field f = item.getClass().getDeclaredField(ID_FIELD);
+            f.setAccessible(true);
+            if (f != null && f.getType() == String.class) {
+                f.set(item, id);
+            }
+        } catch (NoSuchFieldException e1) {
+            Log.d(getClass().getSimpleName(), "Current object has no Id field");
+        } catch (IllegalAccessException e1) {
+            e1.printStackTrace();
+        }
+    }
+
     protected <T> Flowable<T> getData(Class<T> clazz, DatabaseReference ref) {
         return Flowable.create(e -> {
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -73,18 +93,7 @@ public abstract class BaseFirebaseRepository {
                         e.onError(new ItemNotFoundException(ref.toString()));
                         return;
                     }
-                    // TODO: 18.05.17 WARNING!!!
-                    try {
-                        Field f = clazz.getDeclaredField("id");
-                        f.setAccessible(true);
-                        if (f != null && f.getType() == String.class) {
-                            f.set(val, dataSnapshot.getKey());
-                        }
-                    } catch (NoSuchFieldException e1) {
-                        //e1.printStackTrace();
-                    } catch (IllegalAccessException e1) {
-//                        e1.printStackTrace();
-                    }
+                    populateIdIfNeeded(val, ref.getKey());
                     e.onNext(val);
                     e.onComplete();
                 }
@@ -100,7 +109,7 @@ public abstract class BaseFirebaseRepository {
     protected <T> Flowable<String> setData(T data, DatabaseReference ref) {
         return Flowable.create(e -> {
             try {
-                Field f = data.getClass().getDeclaredField("id");
+                Field f = data.getClass().getDeclaredField(ID_FIELD);
                 f.setAccessible(true);
                 if (f != null && f.getType() == String.class) {
                     f.set(data, null);

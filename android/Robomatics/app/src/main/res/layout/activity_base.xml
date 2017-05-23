@@ -6,7 +6,6 @@
     <android.support.v7.widget.Toolbar
         style="@style/WideContent"
         android:theme="@style/Toolbar"
-        android:layout_height="64dp"
         android:background="?attr/colorPrimary"
         android:id="@+id/toolbar"/>
 

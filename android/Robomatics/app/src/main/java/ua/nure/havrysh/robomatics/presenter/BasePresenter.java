@@ -67,4 +67,7 @@ public abstract class BasePresenter<R extends Router, V extends View> {
         onError(t);
     }
 
+    public void showMessageDialog(String message){
+        router.showMessageDialog(message);
+    }
 }

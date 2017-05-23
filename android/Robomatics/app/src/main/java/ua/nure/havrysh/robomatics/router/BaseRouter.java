@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
 import ua.nure.havrysh.robomatics.R;
@@ -64,14 +65,15 @@ public class BaseRouter implements Router {
         baseActivity.finish();
     }
 
-    private DialogFragment getProgress(){
+    private DialogFragment getProgress() {
         return (DialogFragment) baseActivity.getSupportFragmentManager().findFragmentByTag(PROGRESS_TAG);
     }
 
     public void showProgress() {
-        if(getProgress()==null){
-        Log.d("router", "show progress");
-        new ProgressDialog().show(baseActivity.getSupportFragmentManager(), PROGRESS_TAG);}else {
+        if (getProgress() == null) {
+            Log.d("router", "show progress");
+            new ProgressDialog().show(baseActivity.getSupportFragmentManager(), PROGRESS_TAG);
+        } else {
             Log.d("router", "progress is already shown");
         }
     }
@@ -81,8 +83,12 @@ public class BaseRouter implements Router {
         if (progress != null) {
             ((DialogFragment) progress).dismissAllowingStateLoss();
             Log.d("router", "hide progress");
-        }else{
+        } else {
             Log.d("router", "can`t hide progress");
         }
+    }
+
+    public void showMessageDialog(String text) {
+        new AlertDialog.Builder(getBaseActivity()).setMessage(text).show();
     }
 }
