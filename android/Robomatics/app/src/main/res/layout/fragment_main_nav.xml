@@ -11,7 +11,7 @@
                 android:id="@+id/avatar_image_view"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                tools:src="@drawable/ic_googleg_color_24dp" />
+                android:src="@drawable/ic_account" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/name_text_view"
